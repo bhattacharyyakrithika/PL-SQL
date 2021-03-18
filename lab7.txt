@@ -1,0 +1,298 @@
+SQL> create index idx on student(majorID);
+
+Index created.
+
+SQL> select * from room;
+
+R ROOMDESC                                                                      
+- ---------                                                                     
+L Lab                                                                           
+C Classroom                                                                     
+O Office                                                                        
+
+SQL> select * from location;
+
+    ROOMID BUILDIN ROO   CAPACITY R                                             
+---------- ------- --- ---------- -                                             
+        11 Gandhi  101          2 O                                             
+        12 Gandhi  103          2 O                                             
+        13 Kennedy 202         35 L                                             
+        14 Kennedy 204         50 L                                             
+        15 Nehru   301         50 C                                             
+        16 Nehru   309         45 C                                             
+        17 Gandhi  105          2 O                                             
+        18 Kennedy 206         40 L                                             
+        19 Kennedy 210         30 L                                             
+        20 Gandhi  107          2 O                                             
+        21 Gandhi  109          2 O                                             
+
+11 rows selected.
+
+SQL> create sequence sq increment by 1 start with 11 maxvalue 21 nocache;
+
+Sequence created.
+
+SQL> select sq.currval from dual;
+select sq.currval from dual
+       *
+ERROR at line 1:
+ORA-08002: sequence SQ.CURRVAL is not yet defined in this session 
+
+
+SQL> select sq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+        11                                                                      
+
+SQL> create sequence sq increment by 1 start with 21 nomaxvalue nocache;
+create sequence sq increment by 1 start with 21 nomaxvalue nocache
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create sequence sq1 increment by 1 start with 21 nomaxvalue nocache;
+
+Sequence created.
+
+SQL> select sq1.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+        21                                                                      
+
+SQL> drop sq;
+drop sq
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> drop sequence sq;
+
+Sequence dropped.
+
+SQL> drop sequence sq1;
+
+Sequence dropped.
+
+SQL> create sequence sq1 increment by 1 start with 21 nomaxvalue nocache;
+
+Sequence created.
+
+SQL> select sq1.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+        21                                                                      
+
+SQL> insert into location(roomID) values(sq1.nextval);
+insert into location(roomID) values(sq1.nextval)
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("CSE029"."LOCATION"."BUILDING") 
+
+
+SQL> drop sequence sq1;
+
+Sequence dropped.
+
+SQL> create sequence sq1 increment by 1 start with 21 nomaxvalue nocache;
+
+Sequence created.
+
+SQL> select sq1.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+        21                                                                      
+
+SQL> insert into location(roomID,roomno,building) values(sq1.nextval,200,'Nehru');
+
+1 row created.
+
+SQL> select sq1.currval from dual;
+
+   CURRVAL                                                                      
+----------                                                                      
+        22                                                                      
+
+SQL> grant select on term to cse029;
+
+Grant succeeded.
+
+SQL> select * from term;
+
+TERM TERMDESC    STARTDATE ENDDATE                                              
+---- ----------- --------- ---------                                            
+SP02 Spring 2002 28-APR-02 16-AUG-02                                            
+FL02 Fall 2002   08-SEP-02 20-DEC-02                                            
+WN03 Winter 2003 05-JAN-03 18-APR-03                                            
+SP03 Spring 2003 27-APR-03 15-AUG-03                                            
+FL03 Fall 2003   07-SEP-03 19-DEC-03                                            
+
+SQL> insert into term values('WN04','Winter 2004');
+insert into term values('WN04','Winter 2004')
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> drop sequence sq1;
+
+Sequence dropped.
+
+SQL> create sequence sq1 increment by 1 start with 22 nomaxvalue;
+
+Sequence created.
+
+SQL> insert into location values (sq1.currval,'Abc',008,3,'L');
+insert into location values (sq1.currval,'Abc',008,3,'L')
+                             *
+ERROR at line 1:
+ORA-08002: sequence SQ1.CURRVAL is not yet defined in this session 
+
+
+SQL> drop sequence sq1;
+
+Sequence dropped.
+
+SQL> create sequence sq1 increment by 1 start with 21 nomaxvalue nocache;
+
+Sequence created.
+
+SQL> select sq1.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+        21                                                                      
+
+SQL> insert into location(roomID,roomno,building) values(sq1.nextval,200,'Nehru');
+insert into location(roomID,roomno,building) values(sq1.nextval,200,'Nehru')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (CSE029.LOCATION_ROOMID_PK1) violated 
+
+
+SQL> select * from location;
+
+    ROOMID BUILDIN ROO   CAPACITY R                                             
+---------- ------- --- ---------- -                                             
+        11 Gandhi  101          2 O                                             
+        12 Gandhi  103          2 O                                             
+        13 Kennedy 202         35 L                                             
+        14 Kennedy 204         50 L                                             
+        15 Nehru   301         50 C                                             
+        16 Nehru   309         45 C                                             
+        17 Gandhi  105          2 O                                             
+        18 Kennedy 206         40 L                                             
+        19 Kennedy 210         30 L                                             
+        20 Gandhi  107          2 O                                             
+        21 Gandhi  109          2 O                                             
+
+    ROOMID BUILDIN ROO   CAPACITY R                                             
+---------- ------- --- ---------- -                                             
+        22 Nehru   200                                                          
+
+12 rows selected.
+
+SQL> delete from location where roomID=22;
+
+1 row deleted.
+
+SQL> insert into location(roomID,roomno,building) values(sq1.nextval,200,'Nehru');
+
+1 row created.
+
+SQL> select sq1.currval from dual;
+
+   CURRVAL                                                                      
+----------                                                                      
+        23                                                                      
+
+SQL> insert into term values('WN04','Winter 2004',",");
+insert into term values('WN04','Winter 2004',",")
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> insert into term values('WN04','Winter 2004',"","");
+ERROR:
+ORA-01741: illegal zero-length identifier 
+
+
+SQL> insert into term values('WN04','Winter 2004',null,null);
+
+1 row created.
+
+SQL> delete from term where termID='WN04';
+
+1 row deleted.
+
+SQL> grant select on term to cse029;
+
+Grant succeeded.
+
+SQL> insert into term values('WN04','Winter 2004',null,null);
+
+1 row created.
+
+SQL> delete from term where termID='WN04';
+
+1 row deleted.
+
+SQL> grant select on term to cse029;
+
+Grant succeeded.
+
+SQL> create view student_name as select * from student;
+
+View created.
+
+SQL> create view show as select * from student where city='Edision';
+
+View created.
+
+SQL> create view student_major as select studentID,first,last from student where majorID=(select majorID from major where majordesc='BS-Computer Science');
+
+View created.
+
+SQL> alter view show add(city varchar(6));
+alter view show add(city varchar(6))
+                    *
+ERROR at line 1:
+ORA-00922: missing or invalid option 
+
+
+SQL> alter view show compile;
+
+View altered.
+
+SQL> alter view show add(city varchar(6));
+alter view show add(city varchar(6))
+                    *
+ERROR at line 1:
+ORA-00922: missing or invalid option 
+
+
+SQL> create view show2 as select city from student where city='Edison';
+
+View created.
+
+SQL> drop show2;
+drop show2
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> drop view show2;
+
+View dropped.
+
+SQL> exit.
+SP2-0584: EXIT variable "." was non-numeric
+Usage: { EXIT | QUIT }  [ SUCCESS | FAILURE | WARNING | n |
+       <variable> | :<bindvariable> ]  [ COMMIT | ROLLBACK ]

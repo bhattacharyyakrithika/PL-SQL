@@ -1,0 +1,503 @@
+SQL> select *  from kiit_students
+  2  
+SQL> select *  from kiit_students;
+
+      ROLL NAME DOB             CGPA  MOBILE_NO                                 
+---------- ---- --------- ---------- ----------                                 
+        29 KB   14-OCT-00        9.5 9876543210                                 
+        32 MS   01-JUN-00          9 9863727810                                 
+        34 MM   20-FEB-00        9.9 9763612810                                 
+        33 MG   09-DEC-00        9.7 8986543210                                 
+        57 SJ   04-AUG-00        9.8 6925568890                                 
+
+SQL> insert into kiit_students values(01,'GH','01-11-2001',8,9028375164);
+insert into kiit_students values(01,'GH','01-11-2001',8,9028375164)
+                                         *
+ERROR at line 1:
+ORA-01843: not a valid month 
+
+
+SQL> insert into kiit_students values(01,'GH','01-NOV-2001',8,9028375164);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into kiit_students values(02,'FG','01-DEC-2001',8,9028375164);
+
+1 row created.
+
+SQL> insert into kiit_students values(03,'AD','01-FEB-2001',7.5,9028375164);
+
+1 row created.
+
+SQL> insert into kiit_students values(04,'TD','21-FEB-2001',6.5,9028375164);
+
+1 row created.
+
+SQL> insert into kiit_students values(05,'TE','21-MAR-2001',5.5,90283745464);
+insert into kiit_students values(05,'TE','21-MAR-2001',5.5,90283745464)
+                                                           *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column 
+
+
+SQL> insert into kiit_students values(05,'TE','21-MAR-2001',5.5,9028374544);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select name from kiit_students;
+
+NAME                                                                            
+----                                                                            
+KB                                                                              
+MS                                                                              
+MM                                                                              
+MG                                                                              
+SJ                                                                              
+GH                                                                              
+FG                                                                              
+AD                                                                              
+TD                                                                              
+TE                                                                              
+
+10 rows selected.
+
+SQL> select roll,name,cgpa from kiit_students;
+
+      ROLL NAME       CGPA                                                      
+---------- ---- ----------                                                      
+        29 KB          9.5                                                      
+        32 MS            9                                                      
+        34 MM          9.9                                                      
+        33 MG          9.7                                                      
+        57 SJ          9.8                                                      
+         1 GH            8                                                      
+         2 FG            8                                                      
+         3 AD          7.5                                                      
+         4 TD          6.5                                                      
+         5 TE          5.5                                                      
+
+10 rows selected.
+
+SQL> select distinct name from kiit_students;
+
+NAME                                                                            
+----                                                                            
+MG                                                                              
+SJ                                                                              
+AD                                                                              
+TD                                                                              
+TE                                                                              
+FG                                                                              
+MM                                                                              
+MS                                                                              
+KB                                                                              
+GH                                                                              
+
+10 rows selected.
+
+SQL> alter table kiit_students add(age number(2));
+
+Table altered.
+
+SQL> update kiit_students set age=20 where roll=029;
+
+1 row updated.
+
+SQL> update kiit_students set age=19 where roll=032;
+
+1 row updated.
+
+SQL> update kiit_students set age=20 where roll=034;
+
+1 row updated.
+
+SQL> update kiit_students set age=20 where roll=033;
+
+1 row updated.
+
+SQL> update kiit_students set age=19 where roll=057;
+
+1 row updated.
+
+SQL> update kiit_students set age=18 where roll=1;
+
+1 row updated.
+
+SQL> update kiit_students set age=20 where roll=2;
+
+1 row updated.
+
+SQL> update kiit_students set age=20 where roll=3;
+
+1 row updated.
+
+SQL> update kiit_students set age=19 where roll=4;
+
+1 row updated.
+
+SQL> update kiit_students set age=20 where roll=5;
+
+1 row updated.
+
+SQL> select name,age,age+3 "passing-out age" from kiit_students;
+
+NAME        AGE passing-out age                                                 
+---- ---------- ---------------                                                 
+KB           20              23                                                 
+MS           19              22                                                 
+MM           20              23                                                 
+MG           20              23                                                 
+SJ           19              22                                                 
+GH           18              21                                                 
+FG           20              23                                                 
+AD           20              23                                                 
+TD           19              22                                                 
+TE           20              23                                                 
+
+10 rows selected.
+
+SQL> select name||' '||city as address from kiit_students;
+select name||' '||city as address from kiit_students
+                  *
+ERROR at line 1:
+ORA-00904: "CITY": invalid identifier 
+
+
+SQL> alter table kiit_students add(city varchar(4));
+
+Table altered.
+
+SQL> update kiit_students set city='del' where roll=5;
+
+1 row updated.
+
+SQL> update kiit_students set city='pune' where roll=4;
+
+1 row updated.
+
+SQL> update kiit_students set city='kol' where roll=3;
+
+1 row updated.
+
+SQL> update kiit_students set city='guh' where roll=2;
+
+1 row updated.
+
+SQL> update kiit_students set city='ran' where roll=1;
+
+1 row updated.
+
+SQL> update kiit_students set city='del' where roll=057;
+
+1 row updated.
+
+SQL> update kiit_students set city='guh' where roll=033;
+
+1 row updated.
+
+SQL> update kiit_students set city='del' where roll=034;
+
+1 row updated.
+
+SQL> update kiit_students set city='rour' where roll=032;
+
+1 row updated.
+
+SQL> update kiit_students set city='jsr' where roll=029;
+
+1 row updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select name||' '||city as address from kiit_students;
+
+ADDRESS                                                                         
+---------                                                                       
+KB jsr                                                                          
+MS rour                                                                         
+MM del                                                                          
+MG guh                                                                          
+SJ del                                                                          
+GH ran                                                                          
+FG guh                                                                          
+AD kol                                                                          
+TD pune                                                                         
+TE del                                                                          
+
+10 rows selected.
+
+SQL> ALTER TABLE kiit_students DROP COLUMN mobile_no;
+
+Table altered.
+
+SQL> select * from kiit_students;
+
+      ROLL NAME DOB             CGPA        AGE CITY                            
+---------- ---- --------- ---------- ---------- ----                            
+        29 KB   14-OCT-00        9.5         20 jsr                             
+        32 MS   01-JUN-00          9         19 rour                            
+        34 MM   20-FEB-00        9.9         20 del                             
+        33 MG   09-DEC-00        9.7         20 guh                             
+        57 SJ   04-AUG-00        9.8         19 del                             
+         1 GH   01-NOV-01          8         18 ran                             
+         2 FG   01-DEC-01          8         20 guh                             
+         3 AD   01-FEB-01        7.5         20 kol                             
+         4 TD   21-FEB-01        6.5         19 pune                            
+         5 TE   21-MAR-01        5.5         20 del                             
+
+10 rows selected.
+
+SQL> select * from kiit_students where city='del';
+
+      ROLL NAME DOB             CGPA        AGE CITY                            
+---------- ---- --------- ---------- ---------- ----                            
+        34 MM   20-FEB-00        9.9         20 del                             
+        57 SJ   04-AUG-00        9.8         19 del                             
+         5 TE   21-MAR-01        5.5         20 del                             
+
+SQL> select * from kiit_students where cgpa=9;
+
+      ROLL NAME DOB             CGPA        AGE CITY                            
+---------- ---- --------- ---------- ---------- ----                            
+        32 MS   01-JUN-00          9         19 rour                            
+
+SQL> select * from kiit_students where age=20;
+
+      ROLL NAME DOB             CGPA        AGE CITY                            
+---------- ---- --------- ---------- ---------- ----                            
+        29 KB   14-OCT-00        9.5         20 jsr                             
+        34 MM   20-FEB-00        9.9         20 del                             
+        33 MG   09-DEC-00        9.7         20 guh                             
+         2 FG   01-DEC-01          8         20 guh                             
+         3 AD   01-FEB-01        7.5         20 kol                             
+         5 TE   21-MAR-01        5.5         20 del                             
+
+6 rows selected.
+
+SQL> select * from kiit_students where age<20;
+
+      ROLL NAME DOB             CGPA        AGE CITY                            
+---------- ---- --------- ---------- ---------- ----                            
+        32 MS   01-JUN-00          9         19 rour                            
+        57 SJ   04-AUG-00        9.8         19 del                             
+         1 GH   01-NOV-01          8         18 ran                             
+         4 TD   21-FEB-01        6.5         19 pune                            
+
+SQL> select * from kiit_students where age>20;
+
+no rows selected
+
+SQL> select * from kiit_students where age>=20;
+
+      ROLL NAME DOB             CGPA        AGE CITY                            
+---------- ---- --------- ---------- ---------- ----                            
+        29 KB   14-OCT-00        9.5         20 jsr                             
+        34 MM   20-FEB-00        9.9         20 del                             
+        33 MG   09-DEC-00        9.7         20 guh                             
+         2 FG   01-DEC-01          8         20 guh                             
+         3 AD   01-FEB-01        7.5         20 kol                             
+         5 TE   21-MAR-01        5.5         20 del                             
+
+6 rows selected.
+
+SQL> select * from kiit_students where age<=20;
+
+      ROLL NAME DOB             CGPA        AGE CITY                            
+---------- ---- --------- ---------- ---------- ----                            
+        29 KB   14-OCT-00        9.5         20 jsr                             
+        32 MS   01-JUN-00          9         19 rour                            
+        34 MM   20-FEB-00        9.9         20 del                             
+        33 MG   09-DEC-00        9.7         20 guh                             
+        57 SJ   04-AUG-00        9.8         19 del                             
+         1 GH   01-NOV-01          8         18 ran                             
+         2 FG   01-DEC-01          8         20 guh                             
+         3 AD   01-FEB-01        7.5         20 kol                             
+         4 TD   21-FEB-01        6.5         19 pune                            
+         5 TE   21-MAR-01        5.5         20 del                             
+
+10 rows selected.
+
+SQL> select * from kiit_students where name!='ram';
+
+      ROLL NAME DOB             CGPA        AGE CITY                            
+---------- ---- --------- ---------- ---------- ----                            
+        29 KB   14-OCT-00        9.5         20 jsr                             
+        32 MS   01-JUN-00          9         19 rour                            
+        34 MM   20-FEB-00        9.9         20 del                             
+        33 MG   09-DEC-00        9.7         20 guh                             
+        57 SJ   04-AUG-00        9.8         19 del                             
+         1 GH   01-NOV-01          8         18 ran                             
+         2 FG   01-DEC-01          8         20 guh                             
+         3 AD   01-FEB-01        7.5         20 kol                             
+         4 TD   21-FEB-01        6.5         19 pune                            
+         5 TE   21-MAR-01        5.5         20 del                             
+
+10 rows selected.
+
+SQL> select * from kiit_students where age>18,19;
+select * from kiit_students where age>18,19
+                                        *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select * from kiit_students where age>AND(18,19);
+select * from kiit_students where age>AND(18,19)
+                                      *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select * from kiit_students where age>ALL(18,19);
+
+      ROLL NAME DOB             CGPA        AGE CITY                            
+---------- ---- --------- ---------- ---------- ----                            
+        29 KB   14-OCT-00        9.5         20 jsr                             
+        34 MM   20-FEB-00        9.9         20 del                             
+        33 MG   09-DEC-00        9.7         20 guh                             
+         2 FG   01-DEC-01          8         20 guh                             
+         3 AD   01-FEB-01        7.5         20 kol                             
+         5 TE   21-MAR-01        5.5         20 del                             
+
+6 rows selected.
+
+SQL> select roll,name,cgpa from kiit_students where name like 'a%';
+
+no rows selected
+
+SQL> select roll,name,cgpa from kiit_students where name like 'A%';
+
+      ROLL NAME       CGPA                                                      
+---------- ---- ----------                                                      
+         3 AD          7.5                                                      
+
+SQL> select roll,name,cgpa from kiit_students where name like '%A';
+
+no rows selected
+
+SQL> select roll,name,cgpa from kiit_students where name like '%R%';
+
+no rows selected
+
+SQL> select roll,name,cgpa from kiit_students where name like '_R%';
+
+no rows selected
+
+SQL> select roll,name,cgpa from kiit_students where name like 'A__';
+
+no rows selected
+
+SQL> select roll,name,cgpa from kiit_students where name like 'A_';
+
+      ROLL NAME       CGPA                                                      
+---------- ---- ----------                                                      
+         3 AD          7.5                                                      
+
+SQL> select roll,name,cgpa from kiit_students where name like 'A%' and like '%O';
+select roll,name,cgpa from kiit_students where name like 'A%' and like '%O'
+                                                                  *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select roll,name,cgpa from kiit_students where name like 'A%D';
+
+      ROLL NAME       CGPA                                                      
+---------- ---- ----------                                                      
+         3 AD          7.5                                                      
+
+SQL> select roll,name,cgpa from kiit_students where name like 'A%O';
+
+no rows selected
+
+SQL> select roll,name,cgpa from kiit_students where age between 18 and 20;
+
+      ROLL NAME       CGPA                                                      
+---------- ---- ----------                                                      
+        29 KB          9.5                                                      
+        32 MS            9                                                      
+        34 MM          9.9                                                      
+        33 MG          9.7                                                      
+        57 SJ          9.8                                                      
+         1 GH            8                                                      
+         2 FG            8                                                      
+         3 AD          7.5                                                      
+         4 TD          6.5                                                      
+         5 TE          5.5                                                      
+
+10 rows selected.
+
+SQL> select roll,name,cgpa from kiit_students where city in('BBS','DEL','PAT');
+
+no rows selected
+
+SQL> select roll,name,cgpa from kiit_students where city in('BBS','del','PAT');
+
+      ROLL NAME       CGPA                                                      
+---------- ---- ----------                                                      
+        34 MM          9.9                                                      
+        57 SJ          9.8                                                      
+         5 TE          5.5                                                      
+
+SQL> select roll,name,cgpa from kiit_students order by city;
+
+      ROLL NAME       CGPA                                                      
+---------- ---- ----------                                                      
+        57 SJ          9.8                                                      
+         5 TE          5.5                                                      
+        34 MM          9.9                                                      
+        33 MG          9.7                                                      
+         2 FG            8                                                      
+        29 KB          9.5                                                      
+         3 AD          7.5                                                      
+         4 TD          6.5                                                      
+         1 GH            8                                                      
+        32 MS            9                                                      
+
+10 rows selected.
+
+SQL> select roll,name,cgpa from kiit_students order by cgpa desc;
+
+      ROLL NAME       CGPA                                                      
+---------- ---- ----------                                                      
+        34 MM          9.9                                                      
+        57 SJ          9.8                                                      
+        33 MG          9.7                                                      
+        29 KB          9.5                                                      
+        32 MS            9                                                      
+         1 GH            8                                                      
+         2 FG            8                                                      
+         3 AD          7.5                                                      
+         4 TD          6.5                                                      
+         5 TE          5.5                                                      
+
+10 rows selected.
+
+SQL> select roll,name,cgpa,age from kiit_students order by cgpa,age,name;
+
+      ROLL NAME       CGPA        AGE                                           
+---------- ---- ---------- ----------                                           
+         5 TE          5.5         20                                           
+         4 TD          6.5         19                                           
+         3 AD          7.5         20                                           
+         1 GH            8         18                                           
+         2 FG            8         20                                           
+        32 MS            9         19                                           
+        29 KB          9.5         20                                           
+        33 MG          9.7         20                                           
+        57 SJ          9.8         19                                           
+        34 MM          9.9         20                                           
+
+10 rows selected.
+
+SQL> exit

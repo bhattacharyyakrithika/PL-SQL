@@ -1,0 +1,40 @@
+SQL> create table countries(country_id number(3) NOT NULL,country_name varchar(5),region_id number(3) CONSTARAINT cid_no PRIMARY KEY(country_id));
+create table countries(country_id number(3) NOT NULL,country_name varchar(5),region_id number(3) CONSTARAINT cid_no PRIMARY KEY(country_id))
+                                                                                                 *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table countries(country_id number(3) NOT NULL,country_name varchar(5),region_id number(3),CONSTARAINT cid_no PRIMARY KEY(country_id));
+create table countries(country_id number(3) NOT NULL,country_name varchar(5),region_id number(3),CONSTARAINT cid_no PRIMARY KEY(country_id))
+                                                                                                                               *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table countries(country_id number(3) NOT NULL PRIMARY KEY,country_name varchar(5),region_id number(3));
+create table countries(country_id number(3) NOT NULL PRIMARY KEY,country_name varchar(5),region_id number(3))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create table countries_pk(country_id number(3) NOT NULL PRIMARY KEY,country_name varchar(5),region_id number(3));
+
+Table created.
+
+SQL> create table job_def_val(job_id number(3),job_title varchar(5) DEFAULT '',min_salary number(6) DEFAULT 8000,max_salary number(6) DEFAULT NULL CONSTRAINT max_salary_check CHECK(max_salary<=25000));
+create table job_def_val(job_id number(3),job_title varchar(5) DEFAULT '',min_salary number(6) DEFAULT 8000,max_salary number(6) DEFAULT NULL CONSTRAINT max_salary_check CHECK(max_salary<=25000))
+                                                                                                                                                         *
+ERROR at line 1:
+ORA-02264: name already used by an existing constraint 
+
+
+SQL> create table job_def_val(job_id number(3),job_title varchar(5) DEFAULT '',min_salary number(6) DEFAULT 8000,max_salary number(6) DEFAULT NULL);
+
+Table created.
+
+SQL> exit.
+SP2-0584: EXIT variable "." was non-numeric
+Usage: { EXIT | QUIT }  [ SUCCESS | FAILURE | WARNING | n |
+       <variable> | :<bindvariable> ]  [ COMMIT | ROLLBACK ]
